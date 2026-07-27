@@ -1,7 +1,6 @@
-/* ==========================
-   Spotify Player
-   By ChatGPT
-========================== */
+/* ===========================
+   RESET
+=========================== */
 
 *{
     margin:0;
@@ -20,7 +19,9 @@ body{
     background:#000;
 }
 
-/* Background Video */
+/* ===========================
+   BACKGROUND VIDEO
+=========================== */
 
 #bg-video{
     position:fixed;
@@ -29,21 +30,19 @@ body{
     width:100%;
     height:100%;
     object-fit:cover;
-    z-index:-3;
+    z-index:-2;
 }
-
-/* Dark Overlay */
 
 .overlay{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.45);
-    z-index:-2;
+    background:rgba(0,0,0,.55);
+    z-index:-1;
 }
 
-/* ==========================
-        PLAYER
-========================== */
+/* ===========================
+   PLAYER
+=========================== */
 
 .player{
 
@@ -52,634 +51,360 @@ body{
 
     background:rgba(255,255,255,.08);
 
-    backdrop-filter:blur(25px);
-    -webkit-backdrop-filter:blur(25px);
-
-    border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
 
     border-radius:30px;
 
     padding:35px;
 
-    box-shadow:
-    0 20px 60px rgba(0,0,0,.45);
-
     color:white;
 
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.5);
+
+    border:1px solid rgba(255,255,255,.1);
 
 }
 
-/* ==========================
-        COVER
-========================== */
+/* ===========================
+   COVER
+=========================== */
 
-.cover-box{
+.cover{
 
-    width:250px;
-    height:250px;
+    width:240px;
+    height:240px;
+
+    margin:auto;
 
     border-radius:25px;
 
     overflow:hidden;
 
     box-shadow:
-    0 15px 40px rgba(0,0,0,.4);
+    0 15px 40px rgba(0,0,0,.45);
 
 }
 
-.cover-box img{
+.cover img{
 
     width:100%;
     height:100%;
 
     object-fit:cover;
 
-    transition:.4s;
-
 }
 
-/* ==========================
-        TITLE
-========================== */
+/* ===========================
+   TITLE
+=========================== */
 
-#title{
+h1{
 
     margin-top:25px;
+
+    text-align:center;
 
     font-size:30px;
 
-    font-weight:700;
+}
+
+.artist{
 
     text-align:center;
 
-}
+    margin-top:10px;
 
-#artist{
-
-    margin-top:8px;
-
-    color:#cfcfcf;
-
-    font-size:16px;
+    color:#d7d7d7;
 
 }
-
-/* ==========================
-        LYRICS
-========================== */
+/* ===========================
+   LYRICS
+=========================== */
 
 .lyrics{
 
-    width:100%;
+width:100%;
+height:180px;
 
-    margin-top:25px;
+margin-top:25px;
 
-    background:rgba(255,255,255,.05);
+padding:15px;
 
-    border-radius:18px;
+overflow-y:auto;
 
-    padding:18px;
+background:rgba(255,255,255,.05);
 
-    text-align:center;
+border-radius:20px;
 
-    min-height:80px;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
+scroll-behavior:smooth;
 
 }
 
-#lyric{
+.lyrics::-webkit-scrollbar{
 
-    font-size:18px;
-
-    line-height:30px;
-
-    transition:.4s;
+display:none;
 
 }
-/* ==========================
-      PROGRESS BAR
-========================== */
+
+#lyrics-container{
+
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+
+}
+
+#lyrics-container p{
+
+color:#8f8f8f;
+
+font-size:18px;
+
+text-align:center;
+
+transition:.35s;
+
+padding:5px 0;
+
+}
+
+#lyrics-container p.active{
+
+color:#fff;
+
+font-size:22px;
+
+font-weight:700;
+
+transform:scale(1.05);
+
+}
+
+/* ===========================
+   PROGRESS BAR
+=========================== */
 
 .progress-container{
 
-    width:100%;
+display:flex;
 
-    display:flex;
+align-items:center;
 
-    align-items:center;
+gap:10px;
 
-    gap:12px;
-
-    margin-top:25px;
+margin-top:25px;
 
 }
 
 .progress{
 
-    flex:1;
+flex:1;
 
-    height:8px;
+height:6px;
 
-    background:rgba(255,255,255,.15);
+background:#555;
 
-    border-radius:50px;
+border-radius:20px;
 
-    overflow:hidden;
+overflow:hidden;
 
-    cursor:pointer;
+cursor:pointer;
 
 }
 
-.progress-bar{
+#progress{
 
-    width:0%;
+width:0%;
 
-    height:100%;
+height:100%;
 
-    background:linear-gradient(90deg,#1DB954,#3cff88);
+background:#1DB954;
 
-    border-radius:50px;
-
-    transition:.2s;
+border-radius:20px;
 
 }
 
 #current,
 #duration{
 
-    font-size:13px;
+font-size:13px;
 
-    color:#d9d9d9;
-
-    min-width:40px;
-
-    text-align:center;
+color:#d0d0d0;
 
 }
 
-/* ==========================
-        CONTROLS
-========================== */
+/* ===========================
+   BUTTONS
+=========================== */
 
 .controls{
 
-    margin-top:30px;
+display:flex;
 
-    display:flex;
+justify-content:center;
 
-    justify-content:center;
+align-items:center;
 
-    align-items:center;
+gap:25px;
 
-    gap:25px;
+margin-top:25px;
 
 }
 
 .controls button{
 
-    border:none;
+border:none;
 
-    cursor:pointer;
+cursor:pointer;
 
-    transition:.3s;
-
-}
-
-.controls button:hover{
-
-    transform:scale(1.15);
+transition:.3s;
 
 }
-
-/* Previous & Next */
 
 #prev,
 #next{
 
-    width:55px;
+width:55px;
 
-    height:55px;
+height:55px;
 
-    border-radius:50%;
+border-radius:50%;
 
-    background:rgba(255,255,255,.08);
+background:rgba(255,255,255,.08);
 
-    color:white;
-
-    font-size:24px;
-
-}
-
-/* Play Button */
-
-#play{
-
-    width:80px;
-
-    height:80px;
-
-    border-radius:50%;
-
-    background:#1DB954;
-
-    color:white;
-
-    font-size:34px;
-
-    box-shadow:0 10px 35px rgba(29,185,84,.45);
-
-}
-
-#play:hover{
-
-    transform:scale(1.08);
-
-}
-
-/* ==========================
-      VOLUME
-========================== */
-
-.volume{
-
-    width:100%;
-
-    margin-top:30px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-}
-
-.volume input{
-
-    width:100%;
-
-    cursor:pointer;
-
-}
-
-/* ==========================
-      PLAYLIST
-========================== */
-
-.playlist{
-
-    width:100%;
-
-    margin-top:35px;
-
-}
-
-.playlist h3{
-
-    margin-bottom:15px;
-
-    font-size:20px;
-
-}
-
-.playlist ul{
-
-    list-style:none;
-
-}
-
-.playlist li{
-
-    padding:12px 15px;
-
-    margin-bottom:10px;
-
-    border-radius:15px;
-
-    background:rgba(255,255,255,.05);
-
-    transition:.3s;
-
-    cursor:pointer;
-
-}
-
-.playlist li:hover{
-
-    background:rgba(255,255,255,.12);
-
-}
-
-.playlist .active{
-
-    background:#1DB954;
-
-    color:white;
-
-    font-weight:600;
-
-}
-
-/* ==========================
-      ROTATING COVER
-========================== */
-
-.rotate{
-
-    animation:spin 12s linear infinite;
-
-}
-
-@keyframes spin{
-
-    from{
-
-        transform:rotate(0deg);
-
-    }
-
-    to{
-
-        transform:rotate(360deg);
-
-    }
-
-}
-/* ==========================
-      RESPONSIVE
-========================== */
-
-@media (max-width:768px){
-
-.player{
-
-width:95%;
-
-padding:25px;
-
-}
-
-.cover-box{
-
-width:210px;
-
-height:210px;
-
-}
-
-#title{
+color:white;
 
 font-size:24px;
 
 }
 
-#artist{
-
-font-size:15px;
-
-}
-
-#lyric{
-
-font-size:16px;
-
-line-height:28px;
-
-}
-
 #play{
 
-width:70px;
+width:80px;
 
-height:70px;
+height:80px;
 
-font-size:30px;
-
-}
-
-#prev,
-#next{
-
-width:50px;
-
-height:50px;
-
-font-size:20px;
-
-}
-
-}
-
-/* ==========================
-      SMOOTH EFFECT
-========================== */
-
-.player{
-
-transition:.4s ease;
-
-}
-
-.player:hover{
-
-transform:translateY(-5px);
-
-box-shadow:
-0 25px 80px rgba(0,0,0,.55);
-
-}
-
-/* ==========================
-      COVER EFFECT
-========================== */
-
-.cover-box{
-
-transition:.4s;
-
-}
-
-.cover-box:hover{
-
-transform:scale(1.03);
-
-}
-
-/* Glow saat lagu diputar */
-
-.playing .cover-box{
-
-box-shadow:
-0 0 20px rgba(29,185,84,.4),
-0 0 50px rgba(29,185,84,.25),
-0 15px 40px rgba(0,0,0,.4);
-
-}
-
-/* ==========================
-      LYRICS ANIMATION
-========================== */
-
-#lyric{
-
-opacity:1;
-
-transition:
-opacity .35s,
-transform .35s;
-
-}
-
-.fade{
-
-opacity:0;
-
-transform:translateY(10px);
-
-}
-
-/* ==========================
-      SCROLLBAR
-========================== */
-
-::-webkit-scrollbar{
-
-width:8px;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-background:#1DB954;
-
-border-radius:50px;
-
-}
-
-::-webkit-scrollbar-track{
-
-background:rgba(255,255,255,.08);
-
-}
-
-/* ==========================
-      SELECTION
-========================== */
-
-::selection{
+border-radius:50%;
 
 background:#1DB954;
 
 color:white;
 
+font-size:34px;
+
+box-shadow:0 0 25px rgba(29,185,84,.45);
+
 }
 
-/* ==========================
-      INPUT RANGE
-========================== */
+.controls button:hover{
 
-input[type="range"]{
+transform:scale(1.1);
+
+}
+
+/* ===========================
+   VOLUME
+=========================== */
+
+.volume{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+margin-top:30px;
+
+}
+
+.volume input{
+
+width:100%;
 
 accent-color:#1DB954;
 
 }
 
-/* ==========================
-      PLAYLIST EFFECT
-========================== */
+/* ===========================
+   PLAYLIST
+=========================== */
+
+.playlist{
+
+margin-top:30px;
+
+}
+
+.playlist h3{
+
+margin-bottom:12px;
+
+}
+
+.playlist ul{
+
+list-style:none;
+
+}
 
 .playlist li{
 
-position:relative;
+padding:12px;
 
-overflow:hidden;
+border-radius:15px;
 
-}
+margin-bottom:10px;
 
-.playlist li::before{
+background:rgba(255,255,255,.05);
 
-content:"";
+cursor:pointer;
 
-position:absolute;
-
-left:-100%;
-
-top:0;
-
-width:100%;
-
-height:100%;
-
-background:rgba(255,255,255,.08);
-
-transition:.4s;
+transition:.3s;
 
 }
 
-.playlist li:hover::before{
+.playlist li:hover{
 
-left:0;
-
-}
-
-/* ==========================
-      GLASS SHINE
-========================== */
-
-.player::before{
-
-content:"";
-
-position:absolute;
-
-top:0;
-
-left:-120%;
-
-width:80px;
-
-height:100%;
-
-background:linear-gradient(
-90deg,
-transparent,
-rgba(255,255,255,.15),
-transparent
-);
-
-transform:skewX(-20deg);
-
-animation:shine 7s infinite;
+background:rgba(255,255,255,.12);
 
 }
 
-.player{
+.playlist .active{
 
-position:relative;
+background:#1DB954;
 
-overflow:hidden;
+color:white;
 
-}
-
-@keyframes shine{
-
-0%{
-
-left:-120%;
+font-weight:600;
 
 }
 
-100%{
+/* ===========================
+   COVER ROTATE
+=========================== */
 
-left:140%;
+.rotate{
+
+animation:spin 12s linear infinite;
+
+}
+
+@keyframes spin{
+
+from{
+
+transform:rotate(0deg);
+
+}
+
+to{
+
+transform:rotate(360deg);
 
 }
 
