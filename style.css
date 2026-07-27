@@ -1,0 +1,686 @@
+/* ==========================
+   Spotify Player
+   By ChatGPT
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#000;
+}
+
+/* Background Video */
+
+#bg-video{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-3;
+}
+
+/* Dark Overlay */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:-2;
+}
+
+/* ==========================
+        PLAYER
+========================== */
+
+.player{
+
+    width:430px;
+    max-width:90%;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:30px;
+
+    padding:35px;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.45);
+
+    color:white;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+}
+
+/* ==========================
+        COVER
+========================== */
+
+.cover-box{
+
+    width:250px;
+    height:250px;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.4);
+
+}
+
+.cover-box img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.4s;
+
+}
+
+/* ==========================
+        TITLE
+========================== */
+
+#title{
+
+    margin-top:25px;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    text-align:center;
+
+}
+
+#artist{
+
+    margin-top:8px;
+
+    color:#cfcfcf;
+
+    font-size:16px;
+
+}
+
+/* ==========================
+        LYRICS
+========================== */
+
+.lyrics{
+
+    width:100%;
+
+    margin-top:25px;
+
+    background:rgba(255,255,255,.05);
+
+    border-radius:18px;
+
+    padding:18px;
+
+    text-align:center;
+
+    min-height:80px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+#lyric{
+
+    font-size:18px;
+
+    line-height:30px;
+
+    transition:.4s;
+
+}
+/* ==========================
+      PROGRESS BAR
+========================== */
+
+.progress-container{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-top:25px;
+
+}
+
+.progress{
+
+    flex:1;
+
+    height:8px;
+
+    background:rgba(255,255,255,.15);
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+}
+
+.progress-bar{
+
+    width:0%;
+
+    height:100%;
+
+    background:linear-gradient(90deg,#1DB954,#3cff88);
+
+    border-radius:50px;
+
+    transition:.2s;
+
+}
+
+#current,
+#duration{
+
+    font-size:13px;
+
+    color:#d9d9d9;
+
+    min-width:40px;
+
+    text-align:center;
+
+}
+
+/* ==========================
+        CONTROLS
+========================== */
+
+.controls{
+
+    margin-top:30px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:25px;
+
+}
+
+.controls button{
+
+    border:none;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.controls button:hover{
+
+    transform:scale(1.15);
+
+}
+
+/* Previous & Next */
+
+#prev,
+#next{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    font-size:24px;
+
+}
+
+/* Play Button */
+
+#play{
+
+    width:80px;
+
+    height:80px;
+
+    border-radius:50%;
+
+    background:#1DB954;
+
+    color:white;
+
+    font-size:34px;
+
+    box-shadow:0 10px 35px rgba(29,185,84,.45);
+
+}
+
+#play:hover{
+
+    transform:scale(1.08);
+
+}
+
+/* ==========================
+      VOLUME
+========================== */
+
+.volume{
+
+    width:100%;
+
+    margin-top:30px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.volume input{
+
+    width:100%;
+
+    cursor:pointer;
+
+}
+
+/* ==========================
+      PLAYLIST
+========================== */
+
+.playlist{
+
+    width:100%;
+
+    margin-top:35px;
+
+}
+
+.playlist h3{
+
+    margin-bottom:15px;
+
+    font-size:20px;
+
+}
+
+.playlist ul{
+
+    list-style:none;
+
+}
+
+.playlist li{
+
+    padding:12px 15px;
+
+    margin-bottom:10px;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.05);
+
+    transition:.3s;
+
+    cursor:pointer;
+
+}
+
+.playlist li:hover{
+
+    background:rgba(255,255,255,.12);
+
+}
+
+.playlist .active{
+
+    background:#1DB954;
+
+    color:white;
+
+    font-weight:600;
+
+}
+
+/* ==========================
+      ROTATING COVER
+========================== */
+
+.rotate{
+
+    animation:spin 12s linear infinite;
+
+}
+
+@keyframes spin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+/* ==========================
+      RESPONSIVE
+========================== */
+
+@media (max-width:768px){
+
+.player{
+
+width:95%;
+
+padding:25px;
+
+}
+
+.cover-box{
+
+width:210px;
+
+height:210px;
+
+}
+
+#title{
+
+font-size:24px;
+
+}
+
+#artist{
+
+font-size:15px;
+
+}
+
+#lyric{
+
+font-size:16px;
+
+line-height:28px;
+
+}
+
+#play{
+
+width:70px;
+
+height:70px;
+
+font-size:30px;
+
+}
+
+#prev,
+#next{
+
+width:50px;
+
+height:50px;
+
+font-size:20px;
+
+}
+
+}
+
+/* ==========================
+      SMOOTH EFFECT
+========================== */
+
+.player{
+
+transition:.4s ease;
+
+}
+
+.player:hover{
+
+transform:translateY(-5px);
+
+box-shadow:
+0 25px 80px rgba(0,0,0,.55);
+
+}
+
+/* ==========================
+      COVER EFFECT
+========================== */
+
+.cover-box{
+
+transition:.4s;
+
+}
+
+.cover-box:hover{
+
+transform:scale(1.03);
+
+}
+
+/* Glow saat lagu diputar */
+
+.playing .cover-box{
+
+box-shadow:
+0 0 20px rgba(29,185,84,.4),
+0 0 50px rgba(29,185,84,.25),
+0 15px 40px rgba(0,0,0,.4);
+
+}
+
+/* ==========================
+      LYRICS ANIMATION
+========================== */
+
+#lyric{
+
+opacity:1;
+
+transition:
+opacity .35s,
+transform .35s;
+
+}
+
+.fade{
+
+opacity:0;
+
+transform:translateY(10px);
+
+}
+
+/* ==========================
+      SCROLLBAR
+========================== */
+
+::-webkit-scrollbar{
+
+width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:#1DB954;
+
+border-radius:50px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:rgba(255,255,255,.08);
+
+}
+
+/* ==========================
+      SELECTION
+========================== */
+
+::selection{
+
+background:#1DB954;
+
+color:white;
+
+}
+
+/* ==========================
+      INPUT RANGE
+========================== */
+
+input[type="range"]{
+
+accent-color:#1DB954;
+
+}
+
+/* ==========================
+      PLAYLIST EFFECT
+========================== */
+
+.playlist li{
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.playlist li::before{
+
+content:"";
+
+position:absolute;
+
+left:-100%;
+
+top:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(255,255,255,.08);
+
+transition:.4s;
+
+}
+
+.playlist li:hover::before{
+
+left:0;
+
+}
+
+/* ==========================
+      GLASS SHINE
+========================== */
+
+.player::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+left:-120%;
+
+width:80px;
+
+height:100%;
+
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.15),
+transparent
+);
+
+transform:skewX(-20deg);
+
+animation:shine 7s infinite;
+
+}
+
+.player{
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+@keyframes shine{
+
+0%{
+
+left:-120%;
+
+}
+
+100%{
+
+left:140%;
+
+}
+
+}

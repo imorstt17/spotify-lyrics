@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Spotify Music Player</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- Background Video -->
+
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="background.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<!-- PLAYER -->
+
+<div class="player">
+
+<div class="cover-box">
+
+<img src="cover.jpg" id="cover">
+
+</div>
+
+<h1 id="title">
+Shape of My Heart
+</h1>
+
+<p id="artist">
+Elvin
+</p>
+
+<!-- Lyrics -->
+
+<div class="lyrics">
+
+<p id="lyric">
+♪ Tekan tombol Play ♪
+</p>
+
+</div>
+
+<!-- Progress -->
+
+<div class="progress-container">
+
+<span id="current">
+0:00
+</span>
+
+<div class="progress">
+
+<div class="progress-bar" id="progress-bar"></div>
+
+</div>
+
+<span id="duration">
+0:00
+</span>
+
+</div>
+
+<!-- Buttons -->
+
+<div class="controls">
+
+<button id="prev">
+⏮
+</button>
+
+<button id="play">
+▶
+</button>
+
+<button id="next">
+⏭
+</button>
+
+</div>
+
+<!-- Volume -->
+
+<div class="volume">
+
+🔊
+
+<input
+type="range"
+id="volume"
+min="0"
+max="100"
+value="100"
+>
+
+</div>
+
+<!-- Playlist -->
+
+<div class="playlist">
+
+<h3>
+Playlist
+</h3>
+
+<ul>
+
+<li class="active">
+🎵 Shape of My Heart
+</li>
+
+<li>
+🎵 Best Part (feat. H.E.R.)
+</li>
+
+<li>
+🎵 Horizon
+</li>
+
+<li>
+🎵 Memories
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<audio id="audio">
+
+<source src="music.mp3" type="audio/mp3">
+
+</audio>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
